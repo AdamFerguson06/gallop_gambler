@@ -2,8 +2,24 @@
 from get_stock_data_from_api import get_csv_from_api
 import os
 
-# Call the function with the desired stock symbol
-stock_symbol = "AAPL"
+# Make sure the user doesn't enter any integers or floats for the stock symbol
+while True:
+    # Call the function with the desired stock symbol
+    stock_symbol = input("Enter a valid stock ticker: \n")
+    try:
+        int(stock_symbol)
+        print("Error: Stock ticker cannot be an integer. \n")
+    except ValueError:
+        try:
+            float(stock_symbol)
+            print("Error: Stock ticker cannot be a float. \n")
+        except ValueError:
+            break
+
+# Upper case the stock symbol to ensure it matches the API
+stock_symbol = stock_symbol.upper()
+
+# Call the get_csv_from_api function
 csv_data = get_csv_from_api(stock_symbol)
 
 # Get the path to the Downloads folder
